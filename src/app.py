@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from model_utils import load_model_pipeline, preprocess, decode_predictions, get_triage
+from src.model_utils import load_model_pipeline, preprocess, decode_predictions, get_triage
 
 app = FastAPI(title="Symptom Checker API")
 
