@@ -1,0 +1,12 @@
+fastapi
+python-multipart
+accelerate
+uvicorn[standard]
+transformers>=4.30
+torch          # choose CPU or CUDA variant below
+pydantic
+scikit-learn
+pandas
+requests
+python-dotenv
+pytest
