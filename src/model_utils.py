@@ -71,9 +71,17 @@ def preprocess(text):
 # LOAD MODEL + TOKENIZER FROM HUGGINGFACE
 # ----------------------------------------------------
 
+
 def load_model_pipeline():
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_REPO, subfolder="model")
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL_REPO, subfolder="model")
+    tokenizer = AutoTokenizer.from_pretrained(
+        MODEL_REPO,
+        subfolder="model"
+    )
+
+    model = AutoModelForSequenceClassification.from_pretrained(
+        MODEL_REPO,
+        subfolder="model"
+    )
 
     device = 0 if torch.cuda.is_available() else -1
 
@@ -83,6 +91,7 @@ def load_model_pipeline():
         tokenizer=tokenizer,
         device=device
     )
+
 
 # ----------------------------------------------------
 # FORMAT PREDICTIONS
