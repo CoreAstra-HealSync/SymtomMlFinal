@@ -4,8 +4,7 @@ accelerate
 uvicorn[standard]
 transformers>=4.30
 
---index-url https://download.pytorch.org/whl/cpu
-torch
+torch --index-url https://download.pytorch.org/whl/cpu
 
 pydantic
 scikit-learn
