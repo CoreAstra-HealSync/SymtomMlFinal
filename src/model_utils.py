@@ -15,13 +15,14 @@ MODEL_REPO = "mayurkumarg/HealSync-Symptom-Model"   # <-- your HF repo
 
 LABEL_MAP_PATH = hf_hub_download(
     repo_id=MODEL_REPO,
-    filename="label_map.json"
+    filename="model/label_map.json"
 )
 
 DISEASE_INFO_PATH = hf_hub_download(
     repo_id=MODEL_REPO,
-    filename="disease_info.json"
+    filename="model/disease_info.json"
 )
+
 
 # Load JSON files
 with open(LABEL_MAP_PATH, "r") as f:
@@ -71,8 +72,8 @@ def preprocess(text):
 # ----------------------------------------------------
 
 def load_model_pipeline():
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_REPO)
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL_REPO)
+    tokenizer = AutoTokenizer.from_pretrained(MODEL_REPO, subfolder="model")
+    model = AutoModelForSequenceClassification.from_pretrained(MODEL_REPO, subfolder="model")
 
     device = 0 if torch.cuda.is_available() else -1
 
