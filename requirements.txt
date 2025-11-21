@@ -3,7 +3,10 @@ python-multipart
 accelerate
 uvicorn[standard]
 transformers>=4.30
-torch          # choose CPU or CUDA variant below
+
+--index-url https://download.pytorch.org/whl/cpu
+torch
+
 pydantic
 scikit-learn
 pandas
