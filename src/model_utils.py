@@ -4,24 +4,26 @@ import torch
 import json
 import re
 
-# ----------------------------------------------------------------
-# MODEL WILL NOW LOAD FROM HUGGINGFACE (NOT LOCAL PATH)
-# ----------------------------------------------------------------
+# ----------------------------------------------------
+# LOAD MODEL FROM HUGGINGFACE (NOT LOCAL PATH)
+# ----------------------------------------------------
 MODEL_REPO = "mayurkumarg/HealSync-Symptom-Model"   # <-- your HF repo
 
-# Download label_map.json from HF
+# ----------------------------------------------------
+# DOWNLOAD EXTRA FILES FROM HUGGINGFACE
+# ----------------------------------------------------
+
 LABEL_MAP_PATH = hf_hub_download(
     repo_id=MODEL_REPO,
     filename="label_map.json"
 )
 
-# Download disease_info.json from HF
 DISEASE_INFO_PATH = hf_hub_download(
     repo_id=MODEL_REPO,
     filename="disease_info.json"
 )
 
-# Load extra JSON files
+# Load JSON files
 with open(LABEL_MAP_PATH, "r") as f:
     LABEL_MAP = json.load(f)
 
@@ -31,6 +33,7 @@ with open(DISEASE_INFO_PATH, "r") as f:
 # ----------------------------------------------------
 # PREPROCESSING
 # ----------------------------------------------------
+
 def clean_text(text):
     text = text.lower()
     text = re.sub(r"[^a-zA-Z\s]", " ", text)
@@ -66,17 +69,24 @@ def preprocess(text):
 # ----------------------------------------------------
 # LOAD MODEL + TOKENIZER FROM HUGGINGFACE
 # ----------------------------------------------------
+
 def load_model_pipeline():
     tokenizer = AutoTokenizer.from_pretrained(MODEL_REPO)
     model = AutoModelForSequenceClassification.from_pretrained(MODEL_REPO)
 
     device = 0 if torch.cuda.is_available() else -1
 
-    return pipeline("text-classification", model=model, tokenizer=tokenizer, device=device)
+    return pipeline(
+        "text-classification",
+        model=model,
+        tokenizer=tokenizer,
+        device=device
+    )
 
 # ----------------------------------------------------
 # FORMAT PREDICTIONS
 # ----------------------------------------------------
+
 def decode_predictions(preds):
     final_output = []
     for p in preds:
@@ -94,6 +104,7 @@ def decode_predictions(preds):
 # ----------------------------------------------------
 # TRIAGE SYSTEM
 # ----------------------------------------------------
+
 TRIAGE_COLORS = {
     "RED": {"color": "#FF0000", "meaning": "Urgent medical attention required"},
     "YELLOW": {"color": "#FFC300", "meaning": "Moderate concern, monitor symptoms"},
