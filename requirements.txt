@@ -1,14 +1,17 @@
 fastapi
 python-multipart
-accelerate
 uvicorn[standard]
-transformers>=4.30
 
-torch --index-url https://download.pytorch.org/whl/cpu
+# HuggingFace + Transformers
+transformers==4.37.2
+huggingface_hub==0.22.2
+tokenizers==0.20.0
 
-pydantic
-scikit-learn
-pandas
+# CPU-only PyTorch (very important)
+torch==2.2.0+cpu
+-f https://download.pytorch.org/whl/cpu
+
+# Light-weight utilities
+pydantic==2.6.1
 requests
 python-dotenv
-pytest
