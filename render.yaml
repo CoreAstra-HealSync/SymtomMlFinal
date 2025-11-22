@@ -1,16 +1,11 @@
 services:
   - type: web
-    name: healsync-symptom-api
-    env: python
-    region: oregon
+    name: symptom-ml-api
+    env: docker
     plan: free
-
-    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
-
-    startCommand: uvicorn src.app:app --host 0.0.0.0 --port $PORT
-
+    region: oregon
+    dockerfilePath: ./Dockerfile
     autoDeploy: true
-
     envVars:
-      - key: PYTHON_VERSION
-        value: "3.10"
+      - key: HF_HUB_ENABLE_HF_TRANSFER
+        value: "1"
